@@ -1,0 +1,11 @@
+mat-sidenav {
+    width: 200px;
+    border: 2px solid #FFD662FF;
+}
+.main-content {
+    height: 90vh;
+    background-color: #f8f9fe;
+    border-top: 2px solid #FFD662FF;
+    border-right: 2px solid #FFD662FF;
+    border-bottom: 2px solid #FFD662FF;
+}
