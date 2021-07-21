@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; }
+* { font-family: 'Poppins', sans-serif; }
+
+
+/* ========== Button ========== */
+.mat-button-wrapper {
+    font-weight: 600;
+}
+
+/* ========== Form Fields ========== */
+mat-label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #204E7D;
+}
+
+.mandatory {
+    color: #f44336;
+    font-weight: bold;
+    font-size: 16px;
+}
