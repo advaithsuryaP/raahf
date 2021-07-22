@@ -1,0 +1,18 @@
+mat-panel-title {
+    font-weight: 600;
+}
+
+.wrapper {
+    max-height: 206px;
+    overflow: auto;
+}
+
+li {
+    cursor: pointer;
+}
+
+.delete-icon {
+    font-size: 18px;
+    color: coral;
+    cursor: pointer;
+}

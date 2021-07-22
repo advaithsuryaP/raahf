@@ -9,8 +9,8 @@ import { SidebarComponent } from './view/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
+    SidebarComponent,
     PageNotFoundComponent,
-    SidebarComponent
   ],
   imports: [
     CommonModule,

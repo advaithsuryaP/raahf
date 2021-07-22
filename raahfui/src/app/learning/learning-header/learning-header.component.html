@@ -1,0 +1,26 @@
+<mat-toolbar class="d-flex justify-content-between">
+    <button mat-icon-button (click)="goBack()">
+        <mat-icon color="warn">arrow_back</mat-icon>
+    </button>
+    <span>{{'Learning'|uppercase}}</span>
+    <div class="d-flex flex-row-reverse justify-content-start">
+        <button mat-icon-button [routerLink]="['add']" matTooltip="Add New Tile">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Refresh Tiles">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['history']" matTooltip="History Events">
+            <mat-icon>book</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['geography']" matTooltip="Geography">
+            <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Change Color">
+            <mat-icon>format_color_fill</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Change Font Size">
+            <mat-icon>text_fields</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>

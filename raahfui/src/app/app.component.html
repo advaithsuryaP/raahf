@@ -2,7 +2,7 @@
     <button mat-icon-button *ngIf="sidenav.mode === 'over'">
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </button>
-    <span [routerLink]="['/raahf']" style="cursor: pointer;">Raahf</span>
+    <span [routerLink]="['']" style="cursor: pointer;">Raahf</span>
 </mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav mode="side" [opened]="sidenav.mode==='side'" #sidenav>

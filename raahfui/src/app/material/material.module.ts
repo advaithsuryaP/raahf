@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -44,6 +45,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule
   ],
@@ -67,6 +69,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule
   ]
