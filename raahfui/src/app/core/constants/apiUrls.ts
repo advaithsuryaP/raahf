@@ -1,5 +1,4 @@
-const BASE_URL = 'http://localhost:8080'
+const BASE_URL = 'http://localhost:3000'
 export const apiUrls = {
-    getBooks: BASE_URL + '/learning/books',
-    postBook: BASE_URL + '/learning/book',
+    library: BASE_URL + '/api/learning/library',
 }
