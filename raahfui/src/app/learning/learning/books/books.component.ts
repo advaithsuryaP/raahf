@@ -14,13 +14,17 @@ export class BooksComponent implements OnInit, OnDestroy {
   constructor(private booksService: BooksService) { }
 
   ngOnInit(): void { 
-    this.books = this.booksService.getBooks();
+    this.booksService.getBooks();
     this.booksSubscription = this.booksService.booksListener
     .subscribe(
       (books: Book[]) => {
         this.books = books;
       },
     );
+  }
+
+  onDelete(index: string | null) {
+    if(index) this.booksService.removeBook(index);
   }
 
   ngOnDestroy() {

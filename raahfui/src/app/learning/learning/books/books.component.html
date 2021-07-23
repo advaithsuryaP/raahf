@@ -15,7 +15,12 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{book.bookDescription}}</p>
-                        <mat-progress-bar mode="determinate" [value]="book.bookStatus"></mat-progress-bar>
+                        <mat-progress-bar 
+                            mode="determinate" 
+                            [value]="book.bookStatus" 
+                            [matTooltip]="book.bookStatus.toString()+'%'"
+                            matTooltipPosition="above">
+                        </mat-progress-bar>
                         <div class="d-flex flex-column">
                             <div>Total Chapters: {{book.chapters.length}}</div>
                         </div>
@@ -23,7 +28,7 @@
                     <div class="card-footer d-flex justify-content-between">
                         <small class="text-muted">Writte by @{{book.bookAuthor}}</small>
                         <button mat-button type="button" color="primary">EDIT</button>
-                        <button mat-button type="button" color="warn">DELETE</button>
+                        <button mat-button type="button" color="warn" (click)="onDelete(book.bookId)">DELETE</button>
                     </div>
                 </div>
             </div>

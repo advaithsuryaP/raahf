@@ -33,6 +33,7 @@ export class BookEditComponent implements OnInit {
       bookTimeline: [null, [Validators.required]],
       bookDescription: [null],
       bookImage: [null],
+      bookStatus: [20], // Prepare UI for this
       chapters: new FormArray([])
     });
   }
@@ -47,7 +48,10 @@ export class BookEditComponent implements OnInit {
   */
   openChapterAddModal(event: MouseEvent): void {
     event.stopPropagation();
-    const dialogRef = this.dialog.open(ChapterEditComponent); 
+    const dialogRef = this.dialog.open(ChapterEditComponent, {
+      height: '450px',
+      width: '550px',
+    }); 
     dialogRef.afterClosed().subscribe((result) => {
       if(result instanceof FormGroup) (<FormArray>this.bookForm.get('chapters')).push(result)
     });
@@ -59,7 +63,7 @@ export class BookEditComponent implements OnInit {
   */
   openChapterEditModal(control: AbstractControl, elemIndex: number) {
     const dialogRef = this.dialog.open(ChapterEditComponent, {
-      data: control.value
+      data: control.value,
     });
     dialogRef.afterClosed().subscribe((result) => {
       const newChapterArr: Chapter[] = [];
@@ -85,6 +89,7 @@ export class BookEditComponent implements OnInit {
   */
   addBookToLibrary() {
     const book = new Book(
+      null,
       this.formValues.bookCategory, 
       this.formValues.bookTitle,
       this.formValues.bookAuthor,
