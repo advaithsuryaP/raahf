@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { apiUrls } from 'src/app/core/constants/apiUrls';
 import { Book } from '../models/book.model';
 import { Chapter } from '../models/book.model';
 
@@ -8,7 +10,7 @@ import { Chapter } from '../models/book.model';
 })
 export class BooksService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
   private booksSubject = new Subject<Book[]>();
 
   private books: Book[] = [
@@ -34,6 +36,14 @@ export class BooksService {
   * nexts() the Books subject with a copy of the Books[] array
   */
   addBook(book: Book) {
+    this.http.post(apiUrls.postBook, {book: book}).subscribe(
+      (response) => {
+        console.log(response);    
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     this.books.push(book);
     this.booksSubject.next([...this.books]);
   }

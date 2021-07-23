@@ -45,7 +45,8 @@ export class BookEditComponent implements OnInit {
   * This function opens the ChapterEditComponent in a modal
   * The values filled in the modal gets added to the chapters Array
   */
-  openChapterAddModal(): void {
+  openChapterAddModal(event: MouseEvent): void {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(ChapterEditComponent); 
     dialogRef.afterClosed().subscribe((result) => {
       if(result instanceof FormGroup) (<FormArray>this.bookForm.get('chapters')).push(result)
@@ -97,12 +98,4 @@ export class BookEditComponent implements OnInit {
     this.bookService.addBook(book);
     this.router.navigate(['/learning']);
   }
-
-  /*
-  * Yet to figure out the functionality
-  */
-  refresh(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
 }

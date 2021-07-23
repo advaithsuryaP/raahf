@@ -67,12 +67,9 @@
                             Click to {{isPanelOpen ? 'close' : 'open'}} chapters
                         </mat-panel-title>
                         <div class="d-flex flex-row-reverse">
-                            <button mat-icon-button type="button" (click)="openChapterAddModal()"
+                            <button mat-icon-button type="button" (click)="openChapterAddModal($event)"
                                 matTooltip="Add Chapter">
                                 <mat-icon>playlist_add</mat-icon>
-                            </button>
-                            <button mat-icon-button type="button" (click)="refresh($event)" matTooltip="Refresh">
-                                <mat-icon>refresh</mat-icon>
                             </button>
                         </div>
                     </mat-expansion-panel-header>
@@ -86,10 +83,12 @@
                                 [formGroupName]="i">
                                 <div class="chapter-name">{{chapter.value.chapterName}}</div>
                                 <div class="d-flex">
-                                    <mat-icon (click)="deleteChapter(i)" color="warn" matTooltip="Delete Chapter">delete
+                                    <mat-icon (click)="deleteChapter(i)" color="warn" matTooltip="Delete Chapter">
+                                        delete
                                     </mat-icon>
-                                    <mat-icon (click)="openChapterEditModal(chapter, i)"
-                                        matTooltip="Edit Chapter" style="color: greenyellow;">rate_review</mat-icon>
+                                    <mat-icon (click)="openChapterEditModal(chapter, i)" matTooltip="Edit Chapter" 
+                                        style="color: forestgreen;">rate_review
+                                    </mat-icon>
                                 </div>
                             </li>
                         </ul>
