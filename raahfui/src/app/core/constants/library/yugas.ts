@@ -1,0 +1,1 @@
+export const yugas = ['Krita Yugam', 'Treta Yugam', 'Dwapara Yugam', 'Kali Yugam'];

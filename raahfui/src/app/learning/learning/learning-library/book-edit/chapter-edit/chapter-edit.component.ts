@@ -13,15 +13,15 @@ export class ChapterEditComponent implements OnInit {
   isEditMode: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<ChapterEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Chapter
+    @Inject(MAT_DIALOG_DATA) public data: {chapter: Chapter, isCategoryDevotion: boolean }
   ) { }
 
   ngOnInit(): void {
-    if(this.data) this.isEditMode = true;
+    if(this.data.chapter) this.isEditMode = true;
     this.chapterForm = new FormGroup({
-      chapterName: new FormControl(this.isEditMode ? this.data.chapterName : null , [Validators.required]),
-      chapterDescription: new FormControl(this.isEditMode ? this.data.chapterDescription : null),
-      keyPoints: new FormControl(this.isEditMode ? this.data.keyPoints : null)
+      chapterName: new FormControl(this.isEditMode ? this.data.chapter.chapterName : null , [Validators.required]),
+      chapterDescription: new FormControl(this.isEditMode ? this.data.chapter.chapterDescription : null),
+      keyPoints: new FormControl(this.isEditMode ? this.data.chapter.keyPoints : null)
     });
   }
 

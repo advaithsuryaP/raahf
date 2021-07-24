@@ -1,19 +1,24 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
+import { yugas } from 'src/app/core/constants/library/yugas';
 import { Book, Chapter } from 'src/app/learning/models/book.model';
+import { LibraryService } from 'src/app/learning/services/library.service';
 import { ChapterEditComponent } from './chapter-edit/chapter-edit.component';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LibraryService } from 'src/app/learning/services/library.service';
+
 
 @Component({
   selector: 'app-book-edit',
   templateUrl: './book-edit.component.html',
-  styleUrls: ['./book-edit.component.css']
+  styleUrls: ['./book-edit.component.css'],
 })
 export class BookEditComponent implements OnInit {
-  isPanelOpen = true;
+  isPanelOpen: boolean = true;
+  isCategoryDevotion: boolean = false;
   bookForm!: FormGroup;
+  oldTimelines: string[] = yugas; 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -33,7 +38,7 @@ export class BookEditComponent implements OnInit {
       bookTimeline: [null, [Validators.required]],
       bookDescription: [null],
       bookImage: [null],
-      bookStatus: [20], // Prepare UI for this
+      bookStatus: [null],
       chapters: new FormArray([])
     });
   }
@@ -49,6 +54,9 @@ export class BookEditComponent implements OnInit {
   openChapterAddModal(event: MouseEvent): void {
     event.stopPropagation();
     const dialogRef = this.dialog.open(ChapterEditComponent, {
+      data: {
+        isCategoryDevotion: this.isCategoryDevotion
+      },
       height: '450px',
       width: '550px',
     }); 
@@ -63,7 +71,10 @@ export class BookEditComponent implements OnInit {
   */
   openChapterEditModal(control: AbstractControl, elemIndex: number) {
     const dialogRef = this.dialog.open(ChapterEditComponent, {
-      data: control.value,
+      data: {
+        chapter: control.value,
+        isCategoryDevotion: this.isCategoryDevotion
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
       const newChapterArr: Chapter[] = [];
@@ -103,4 +114,15 @@ export class BookEditComponent implements OnInit {
     this.libraryService.addBook(book);
     this.router.navigate(['/learning/library']);
   }
+
+  /*
+  * This function is called when user selects a value from Book Category Dropdown  
+  */
+  onCategorySelect(event: MatSelectChange) {
+    if(event.value === 'devotion') this.isCategoryDevotion = true;
+    else {
+      this.isCategoryDevotion = false;
+      this.bookForm.get('bookTimeline')?.markAsUntouched();
+    } 
+  } 
 }

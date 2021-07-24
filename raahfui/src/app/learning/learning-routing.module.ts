@@ -14,7 +14,6 @@ const routes: Routes = [
     { path: 'history', component: LearningHistoryComponent },
     { path: 'geography', component: LearningGeographyComponent },
     { path: 'add', component: BookEditComponent },
-    { path: ':id', component: BookEditComponent }
   ]}
 ];
 

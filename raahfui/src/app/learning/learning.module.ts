@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { LearningRoutingModule } from './learning-routing.module';
 
-import { BooksComponent } from './learning/books/books.component';
 import { LearningComponent } from './learning/learning.component';
 import { LearningHeaderComponent } from './learning-header/learning-header.component';
 import { LearningHomeComponent } from './learning/learning-home/learning-home.component';
@@ -18,7 +17,6 @@ import { ChapterEditComponent } from './learning/learning-library/book-edit/chap
 
 @NgModule({
   declarations: [
-    BooksComponent,
     BookEditComponent,
     LearningComponent,
     ChapterEditComponent,
