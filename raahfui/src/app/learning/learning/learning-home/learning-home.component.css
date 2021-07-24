@@ -1,0 +1,9 @@
+.col:hover .card{
+    cursor: pointer;
+    border: 2px solid#3f51b5;
+    border-radius: 8px;
+}
+
+.col:hover .text-muted {
+    font-weight: 600;
+}

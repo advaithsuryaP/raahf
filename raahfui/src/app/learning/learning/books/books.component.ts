@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Book } from '../../models/book.model';
-import { BooksService } from '../../services/books.service';
+import { LibraryService } from '../../services/library.service';
 
 @Component({
   selector: 'app-books',
@@ -9,25 +9,25 @@ import { BooksService } from '../../services/books.service';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit, OnDestroy {
-  books: Book[] = [];
-  booksSubscription?: Subscription;
-  constructor(private booksService: BooksService) { }
+  library: Book[] = [];
+  librarySubscription?: Subscription;
+  constructor(private libraryService: LibraryService) { }
 
   ngOnInit(): void { 
-    this.booksService.getBooks();
-    this.booksSubscription = this.booksService.booksListener
+    this.libraryService.getBooks();
+    this.librarySubscription = this.libraryService.booksListener
     .subscribe(
-      (books: Book[]) => {
-        this.books = books;
+      (data) => {
+        this.library = data;
       },
     );
   }
 
-  onDelete(index: string | null) {
-    if(index) this.booksService.removeBook(index);
+  onDelete(bookId: string | null) {
+    if(bookId) this.libraryService.removeBook(bookId);
   }
 
   ngOnDestroy() {
-    if(this.booksSubscription) this.booksSubscription.unsubscribe();
+    if(this.librarySubscription) this.librarySubscription.unsubscribe();
   }
 }

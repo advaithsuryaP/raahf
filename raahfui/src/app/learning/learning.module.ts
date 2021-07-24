@@ -7,24 +7,26 @@ import { LearningRoutingModule } from './learning-routing.module';
 
 import { BooksComponent } from './learning/books/books.component';
 import { LearningComponent } from './learning/learning.component';
-import { HistoryComponent } from './learning/history/history.component';
-import { GeographyComponent } from './learning/geography/geography.component';
-import { BookEditComponent } from './learning/books/book-edit/book-edit.component';
 import { LearningHeaderComponent } from './learning-header/learning-header.component';
-import { BookDetailComponent } from './learning/books/book-detail/book-detail.component';
-import { ChapterEditComponent } from './learning/books/book-edit/chapter-edit/chapter-edit.component';
+import { LearningHomeComponent } from './learning/learning-home/learning-home.component';
+import { BookEditComponent } from './learning/learning-library/book-edit/book-edit.component';
+import { LearningLibraryComponent } from './learning/learning-library/learning-library.component';
+import { LearningGeographyComponent } from './learning/learning-geography/learning-geography.component';
+import { LearningHistoryComponent } from './learning/learning-history/learning-history.component';
+import { ChapterEditComponent } from './learning/learning-library/book-edit/chapter-edit/chapter-edit.component';
 
 
 @NgModule({
   declarations: [
-    LearningComponent,
-    LearningHeaderComponent,
-    GeographyComponent,
-    HistoryComponent,
     BooksComponent,
     BookEditComponent,
-    BookDetailComponent,
-    ChapterEditComponent
+    LearningComponent,
+    ChapterEditComponent,
+    LearningHomeComponent,
+    LearningHeaderComponent,
+    LearningHistoryComponent,
+    LearningLibraryComponent,
+    LearningGeographyComponent,
   ],
   imports: [
     CommonModule,
