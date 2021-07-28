@@ -1,4 +1,4 @@
-<form [formGroup]="bookForm" (ngSubmit)="addBookToLibrary()">
+<form [formGroup]="bookForm" (ngSubmit)="saveBookToLibrary()" *ngIf="!isLoading">
     <mat-card>
         <mat-card-content>
             <!-- Basic Information -->
@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-6">
                     <mat-form-field floatLabel="always">
                         <mat-label>Category <span class="mandatory">*</span></mat-label>
-                        <mat-select formControlName="bookCategory" (selectionChange)="onCategorySelect($event)">
+                        <mat-select formControlName="bookCategory" (selectionChange)="onCategorySelect($event)" [(value)]="formValues.bookCategory">
                             <mat-option>None</mat-option>
                             <mat-option value="entrepreneurship">Entrepreneurship</mat-option>
                             <mat-option value="finance">Finance</mat-option>
@@ -32,15 +32,15 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <mat-form-field floatLabel="always" *ngIf="!isCategoryDevotion">
+                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion === false">
                         <mat-label>Timeline <span class="mandatory">*</span></mat-label>
-                        <input matInput [matDatepicker]="datePicker" formControlName="bookTimeline" autocomplete="off">
+                        <input matInput formControlName="bookTimeline" autocomplete="off">
                         <mat-datepicker-toggle matSuffix [for]="datePicker" style="font-size: 20px;">
                         </mat-datepicker-toggle>
                         <mat-datepicker #datePicker color="primary"></mat-datepicker>
                         <mat-error>This is a mandatory field</mat-error>
                     </mat-form-field>
-                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion">
+                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion === true">
                         <mat-label>Timeline <span class="mandatory">*</span></mat-label>
                         <mat-select formControlName="bookTimeline" autocomplete="off">
                             <mat-option *ngFor="let timeline of oldTimelines" [value]="timeline">
@@ -116,7 +116,7 @@
         </mat-card-content>
         <mat-card-actions class="d-flex justify-content-center">
             <button mat-raised-button type="submit" color="warn" [disabled]="bookForm.invalid">
-                Add Book
+                {{isEditMode ? 'Update' : 'Add'}} Book
             </button>
         </mat-card-actions>
     </mat-card>

@@ -10,6 +10,14 @@ exports.getBooks = (req, res, next) => {
     })
 };
 
+exports.getBook = (req, res, next) => {
+    Book.findById(req.params.id)
+    .then(document => {
+        if(document) res.status(200).json({ message: 'Book fetched successfully', fetchedBook: document })
+        else res.status(404).json({ message: 'Book not found!', fetchedBook: null })
+    }); 
+};
+
 exports.addBook = (req, res, next) => {
     const book = new Book({
         bookCategory: req.body.bookCategory,
@@ -28,6 +36,24 @@ exports.addBook = (req, res, next) => {
             addedBookId: addedBook._id 
         });
     });
+};
+
+exports.updateBook = (req, res, next) => {
+    const book = new Book({
+        _id: req.body.bookId,
+        bookCategory: req.body.bookCategory,
+        bookTitle: req.body.bookTitle,
+        bookAuthor: req.body.bookAuthor,
+        bookTimeline: req.body.bookTimeline,
+        bookDescription: req.body.bookDescription,
+        bookImage: req.body.bookImage,
+        bookStatus: req.body.bookStatus,
+        chapters: req.body.chapters
+    });
+    Book.updateOne({ _id: req.params.id }, book)
+    .then((result) => {
+        res.status(200).json({ message: 'Book updated in library!' }) 
+    })
 };
 
 exports.deleteBook = (req, res, next) => {

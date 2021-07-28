@@ -12,7 +12,7 @@ export class LibraryService {
   constructor(private http: HttpClient) { }
   private booksSubject = new Subject<Book[]>();
 
-  private books: Book[] = [];
+  private library: Book[] = [];
 
   /*
   * Books Subject Listener
@@ -27,8 +27,8 @@ export class LibraryService {
     this.http.post<{ message: string, addedBookId: string }>(apiUrls.library, book).subscribe(
       (response) => {
         book.bookId = response.addedBookId;
-        this.books.push(book);
-        this.booksSubject.next([...this.books]);
+        this.library.push(book);
+        this.booksSubject.next([...this.library]);
       },
       (error) => {
         console.log(error);
@@ -40,8 +40,8 @@ export class LibraryService {
     this.http.delete<{ message: string }>(`${apiUrls.library}/${bookId}`)
       .subscribe(
         (response) => {
-          this.books = this.books.filter(book => book.bookId !== bookId);
-          this.booksSubject.next([...this.books]);
+          this.library = this.library.filter(book => book.bookId !== bookId);
+          this.booksSubject.next([...this.library]);
         },
         (error) => {
           console.log(error);
@@ -49,8 +49,20 @@ export class LibraryService {
       );
   }
 
-  updateBook(index: number, updatedBook: Book) {
-    this.books[index] = updatedBook;
+  updateBook(bookId: string, updatedBook: Book) {
+    this.http.put<{message: string}>(`${apiUrls.library}/${bookId}`, updatedBook)
+      .subscribe(
+        (response) => {
+          const updatedLibrary = [...this.library];
+          const oldBookIndex = updatedLibrary.findIndex(b => b.bookId === bookId);
+          updatedLibrary[oldBookIndex] = updatedBook;
+          this.library = updatedLibrary;
+          this.booksSubject.next([...this.library]);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   getBooks() {
@@ -67,12 +79,16 @@ export class LibraryService {
       )
       .subscribe(
         (response: Book[]) => {
-          this.books = response;
-          this.booksSubject.next([...this.books]);
+          this.library = response;
+          this.booksSubject.next([...this.library]);
         },
         (error) => {
           console.log(error);
         }
       );
+  }
+
+  getBook(bookId: string) {
+    return this.http.get<{message: string, fetchedBook: Book | null}>(`${apiUrls.library}/${bookId}`);
   }
 }

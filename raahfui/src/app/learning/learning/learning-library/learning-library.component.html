@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <small class="text-muted">Writte by @{{book.bookAuthor}}</small>
-                        <button mat-button type="button" color="primary">EDIT</button>
+                        <button mat-button type="button" color="primary" [routerLink]="['edit',book.bookId]">EDIT</button>
                         <button mat-button type="button" color="warn" (click)="onDelete(book.bookId)">DELETE</button>
                     </div>
                 </div>
