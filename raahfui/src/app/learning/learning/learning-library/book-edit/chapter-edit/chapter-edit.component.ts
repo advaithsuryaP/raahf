@@ -11,6 +11,7 @@ import { Chapter } from 'src/app/learning/models/book.model';
 export class ChapterEditComponent implements OnInit {
   chapterForm!: FormGroup;
   isEditMode: boolean = false;
+  isCategoryDevotion = false;
   constructor(
     public dialogRef: MatDialogRef<ChapterEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {chapter: Chapter, isCategoryDevotion: boolean }
@@ -18,6 +19,7 @@ export class ChapterEditComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.data.chapter) this.isEditMode = true;
+    this.isCategoryDevotion = this.data.isCategoryDevotion;
     this.chapterForm = new FormGroup({
       chapterName: new FormControl(this.isEditMode ? this.data.chapter.chapterName : null , [Validators.required]),
       chapterDescription: new FormControl(this.isEditMode ? this.data.chapter.chapterDescription : null),

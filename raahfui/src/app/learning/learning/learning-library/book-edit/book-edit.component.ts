@@ -76,7 +76,6 @@ export class BookEditComponent implements OnInit {
   }  
 
   initializeForm() {
-    console.log(this.editableBook);
     this.bookForm = this.fb.group({
       bookCategory: [this.isEditMode ? this.editableBook?.bookCategory : null, [Validators.required]],
       bookTitle: [this.isEditMode ? this.editableBook?.bookTitle : null, [Validators.required]],
