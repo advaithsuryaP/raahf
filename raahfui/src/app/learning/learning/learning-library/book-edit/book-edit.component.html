@@ -32,15 +32,15 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion === false">
+                    <mat-form-field floatLabel="always" *ngIf="!isCategoryDevotion">
                         <mat-label>Timeline <span class="mandatory">*</span></mat-label>
-                        <input matInput formControlName="bookTimeline" autocomplete="off">
+                        <input matInput formControlName="bookTimeline" [matDatepicker]="datePicker">
                         <mat-datepicker-toggle matSuffix [for]="datePicker" style="font-size: 20px;">
                         </mat-datepicker-toggle>
                         <mat-datepicker #datePicker color="primary"></mat-datepicker>
                         <mat-error>This is a mandatory field</mat-error>
                     </mat-form-field>
-                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion === true">
+                    <mat-form-field floatLabel="always" *ngIf="isCategoryDevotion">
                         <mat-label>Timeline <span class="mandatory">*</span></mat-label>
                         <mat-select formControlName="bookTimeline" autocomplete="off">
                             <mat-option *ngFor="let timeline of oldTimelines" [value]="timeline">
