@@ -6,7 +6,10 @@ const app = express();
 
 mongoose.connect(`
     mongodb+srv://advaithsurya:wwc43TiLlerb9CUe@cluster0.fzgoe.mongodb.net/raahf?retryWrites=true&w=majority
-    `
+    `, { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
 ).then(() => {
     console.log('Connected to MongoDB!');
 }).catch(() => {
