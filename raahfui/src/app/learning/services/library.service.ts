@@ -4,12 +4,16 @@ import { Subject } from 'rxjs';
 import { apiUrls } from 'src/app/core/constants/apiUrls';
 import { Book, Chapter } from '../models/book.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
   private booksSubject = new Subject<Book[]>();
 
   private library: Book[] = [];
@@ -20,8 +24,9 @@ export class LibraryService {
   get booksListener() { return this.booksSubject.asObservable(); }
 
   /*
-  * Adds new Book to the Book[] array
-  * nexts() the Books subject with a copy of the Books[] array
+  * Sends POST request with book:Book parameter as data
+  * On success, the book is added to the library
+  * nexts() a copy of library
   */
   addBook(book: Book) {
     this.http.post<{ message: string, addedBookId: string }>(apiUrls.library, book).subscribe(
@@ -29,6 +34,7 @@ export class LibraryService {
         book.bookId = response.addedBookId;
         this.library.push(book);
         this.booksSubject.next([...this.library]);
+        this.router.navigate(['/learning/library']);
       },
       (error) => {
         console.log(error);
@@ -36,10 +42,15 @@ export class LibraryService {
     );
   }
 
+  /*
+  * Sends DELETE request with bookId 
+  * On success, the particular book is removed from local variable "library"
+  * nexts() a copy of the library
+  */
   removeBook(bookId: string) {
     this.http.delete<{ message: string }>(`${apiUrls.library}/${bookId}`)
       .subscribe(
-        (response) => {
+        (_response) => {
           this.library = this.library.filter(book => book.bookId !== bookId);
           this.booksSubject.next([...this.library]);
         },
@@ -49,15 +60,21 @@ export class LibraryService {
       );
   }
 
+  /*
+  * Sends a PUT request with bookId and updatedBook
+  * On success, the book is updated in the library
+  * nexts() a copy of the library
+  */
   updateBook(bookId: string, updatedBook: Book) {
     this.http.put<{message: string}>(`${apiUrls.library}/${bookId}`, updatedBook)
       .subscribe(
-        (response) => {
-          const updatedLibrary = [...this.library];
-          const oldBookIndex = updatedLibrary.findIndex(b => b.bookId === bookId);
-          updatedLibrary[oldBookIndex] = updatedBook;
+        (_response) => {
+          const updatedLibrary = [...this.library]; // A copy of the library is taken into "updatedLibrary"
+          const oldBookIndex = updatedLibrary.findIndex(b => b.bookId === bookId); // We find the index of the book to be updated
+          updatedLibrary[oldBookIndex] = updatedBook; // New book is updated in the new index in "updatedLibrary"
           this.library = updatedLibrary;
           this.booksSubject.next([...this.library]);
+          this.router.navigate(['/learning/library']);
         },
         (error) => {
           console.log(error);
