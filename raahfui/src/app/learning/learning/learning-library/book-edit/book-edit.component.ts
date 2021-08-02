@@ -26,7 +26,6 @@ export class BookEditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private router: Router,
     private route: ActivatedRoute,
     private libraryService: LibraryService
   ) { }
@@ -72,7 +71,6 @@ export class BookEditComponent implements OnInit {
       }
     );
     this.isCategoryDevotion = this.editableBook?.bookCategory === 'devotion' ? true : false;
-
   }  
 
   initializeForm() {
@@ -165,7 +163,7 @@ export class BookEditComponent implements OnInit {
         this.formValues.bookDescription,
         // this.formValues.bookImage,
         'https://c8.alamy.com/comp/E63190003/painting-depicting-the-scene-in-bhagavad-gita-where-lord-krishna-enters-E63003.jpg',
-        this.formValues.bookStatus,
+        this.formValues.bookStatus ? this.formValues.bookStatus : 0,
         this.formValues.chapters
       )
       this.libraryService.updateBook(this.bookId, updatedBook);
@@ -179,14 +177,12 @@ export class BookEditComponent implements OnInit {
         this.formValues.bookDescription,
         // this.formValues.bookImage,
         'https://c8.alamy.com/comp/E63190003/painting-depicting-the-scene-in-bhagavad-gita-where-lord-krishna-enters-E63003.jpg',
-        this.formValues.bookStatus,
+        this.formValues.bookStatus ? this.formValues.bookStatus : 0,
         this.formValues.chapters
       );
       this.libraryService.addBook(book);
     }
-    this.router.navigate(['/learning/library']);
   }
-
   /*
   * This function is called when user selects a value from Book Category Dropdown  
   */
