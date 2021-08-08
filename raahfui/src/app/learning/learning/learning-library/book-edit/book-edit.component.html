@@ -34,7 +34,7 @@
                 <div class="col-lg-3 col-6">
                     <mat-form-field floatLabel="always" *ngIf="!isCategoryDevotion">
                         <mat-label>Timeline <span class="mandatory">*</span></mat-label>
-                        <input matInput formControlName="bookTimeline" [matDatepicker]="datePicker">
+                        <input matInput formControlName="bookTimeline" [matDatepicker]="datePicker" autocomplete="off">
                         <mat-datepicker-toggle matSuffix [for]="datePicker" style="font-size: 20px;">
                         </mat-datepicker-toggle>
                         <mat-datepicker #datePicker color="primary"></mat-datepicker>
@@ -53,21 +53,24 @@
             </div>
             <!-- Description, Image -->
             <div class="row">
-                <div class="col-lg-6 col-6">
+                <div class="col-6">
                     <mat-form-field floatLabel="always" style="width: 100%;">
                         <mat-label>Description</mat-label>
                         <textarea matInput formControlName="bookDescription" rows="1">
                             </textarea>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <mat-form-field floatLabel="always">
+                <div class="col-6">
+                    <mat-form-field floatLabel="always" style="width: 90%;">
                         <mat-label>Image</mat-label>
                         <input matInput formControlName="bookImage" type="text" autocomplete="off">
                         <mat-icon matSuffix>add_a_photo</mat-icon>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-3 col-12">
+            </div>
+            <!-- Status, Favourites -->
+            <div class="row">
+                <div class="col-8">
                     <mat-slider 
                         formControlName="bookStatus" 
                         color="primary" 
@@ -76,6 +79,11 @@
                         style="width: 90%;"
                         tickInterval=10>
                     </mat-slider>
+                </div>
+                <div class="col-4">
+                    <mat-slide-toggle formControlName="isBookLiked" color="primary">
+                        Add book to favourites!
+                    </mat-slide-toggle>
                 </div>
             </div>
             <mat-accordion>

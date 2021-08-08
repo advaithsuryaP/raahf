@@ -9,6 +9,7 @@ export class Book {
         public bookDescription: string,
         public bookImage: string,
         public bookStatus: number, // Progress in terms of %
+        public isBookLiked: boolean,
         public chapters: Chapter[] 
     ) {}
 }

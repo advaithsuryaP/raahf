@@ -1,0 +1,54 @@
+<div class="row row-cols-2 row-cols-md-3 g-4">
+  <div class="col" *ngFor="let book of library">
+    <div class="card h-100 border border-dark">
+      <div class="card-header d-flex justify-content-between">
+        <b class="book-title d-flex align-self-center"> {{ book.bookTitle | titlecase }} </b>
+        <div class="d-flex flex-column">
+          <span class="book-category" matTooltip="Category" matTooltipPosition="above">#{{book.bookCategory}}</span>
+          <span class="text-muted book-author" matTooltip="Author" matTooltipPosition="above">@{{book.bookAuthor}}</span>
+        </div>
+      </div>
+      <!-- <img [src]="book.bookImage" class="card-img-top" alt="Book Image"> -->
+      <img
+        src="https://www.bhagwanbhajan.com/sri-hanuman/shree-hanuman-hd-wallpapers/bhagwan-hanuman-new-hd-wallpaper-7.jpg"
+        alt="" class="card-img-top">
+      <div class="card-body">
+        <p class="book-desc" [matTooltip]="book.bookDescription" matTooltipPosition="above">
+          <b>Description: </b>
+          {{book.bookDescription}}
+        </p>
+        <mat-divider></mat-divider>
+        <div class="d-flex justify-content-between">
+          <p>
+            <b>Total Chapters: </b>
+            {{book.chapters.length}}
+          </p>
+          <p *ngIf="book.bookCategory === 'devotion'" class="fst-italic" matTooltip="Timeline"
+            matTooltipPosition="above">
+            {{ book.bookTimeline }}
+          </p>
+          <p *ngIf="book.bookCategory !== 'devotion'" class="fst-italic" matTooltip="Date of read"
+            matTooltipPosition="above">
+            {{ book.bookTimeline | date }}
+          </p>
+        </div>
+        <mat-progress-bar color="primary" [value]="book.bookStatus" [matTooltip]="book.bookStatus.toString() + '%'"
+          matTooltipPosition="above">
+        </mat-progress-bar>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <div class="d-flex justify-content-start">
+          <mat-icon class="button-action" 
+            [matTooltip]="book.isBookLiked ? 'Remove from favorites' : 'Add to favorites'" 
+            [color]="book.isBookLiked ? 'warn' : 'basic'"
+            (click)="toggleFavourite(book.bookId)">
+            {{ book.isBookLiked ? 'favorite' : 'favorite_border' }}
+          </mat-icon>
+          <mat-icon class="button-action" matTooltip="Edit" [routerLink]="['edit', book.bookId]">edit</mat-icon>
+          <mat-icon class="button-action" matTooltip="Delete" (click)="onDelete(book.bookId)">delete</mat-icon>
+        </div>
+        <mat-icon class="button-action" matTooltip="View Chapters" [routerLink]="[book.bookId]">menu</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

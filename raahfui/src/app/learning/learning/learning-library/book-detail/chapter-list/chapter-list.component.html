@@ -1,0 +1,7 @@
+<mat-selection-list [multiple]="false">
+    <mat-list-option 
+        *ngFor="let chapter of chapters; let i = index" 
+        (click)="emitSelectedChapter(chapter)">
+        Chapter {{i+1}}
+    </mat-list-option>
+</mat-selection-list>

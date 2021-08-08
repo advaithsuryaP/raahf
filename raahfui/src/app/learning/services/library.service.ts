@@ -66,7 +66,7 @@ export class LibraryService {
   * nexts() a copy of the library
   */
   updateBook(bookId: string, updatedBook: Book) {
-    this.http.put<{message: string}>(`${apiUrls.library}/${bookId}`, updatedBook)
+    this.http.put<{ message: string }>(`${apiUrls.library}/${bookId}`, updatedBook)
       .subscribe(
         (_response) => {
           const updatedLibrary = [...this.library]; // A copy of the library is taken into "updatedLibrary"
@@ -86,9 +86,27 @@ export class LibraryService {
     this.http.get<{ message: string, books: any }>(apiUrls.library)
       .pipe(
         map(response => {
-          return response.books.map((book: { _id: string; bookCategory: 'finance' | 'devotion' | 'entrepreneurship'; bookTitle: string; bookAuthor: string; bookTimeline: string; bookDescription: string; bookImage: string; bookStatus: number; chapters: Chapter[]; }) => {
+          return response.books.map((book: {
+            _id: string; bookCategory: 'finance' | 'devotion' | 'entrepreneurship';
+            bookTitle: string;
+            bookAuthor: string;
+            bookTimeline: string;
+            bookDescription: string;
+            bookImage: string;
+            bookStatus: number;
+            isBookLiked: boolean,
+            chapters: Chapter[];
+          }) => {
             return new Book(
-              book._id, book.bookCategory, book.bookTitle, book.bookAuthor, book.bookTimeline, book.bookDescription, book.bookImage, book.bookStatus,
+              book._id,
+              book.bookCategory,
+              book.bookTitle,
+              book.bookAuthor,
+              book.bookTimeline,
+              book.bookDescription,
+              book.bookImage,
+              book.bookStatus,
+              book.isBookLiked,
               book.chapters
             );
           });
@@ -106,6 +124,22 @@ export class LibraryService {
   }
 
   getBook(bookId: string) {
-    return this.http.get<{message: string, fetchedBook: Book | null}>(`${apiUrls.library}/${bookId}`);
+    return this.http.get<{ message: string, fetchedBook: Book | null }>(`${apiUrls.library}/${bookId}`);
+  }
+
+  toggleFavourite(bookId: string) {
+    this.http.put<{message: string, result: any}>(`${apiUrls.library}/${bookId}/toggleFavourite`, null)
+    .subscribe(
+      (_response) => {
+        const updatedLibrary = [...this.library];
+        const oldBookIndex = updatedLibrary.findIndex(b => b.bookId === bookId);
+        updatedLibrary[oldBookIndex].isBookLiked = !updatedLibrary[oldBookIndex].isBookLiked;
+        this.library = updatedLibrary; 
+        this.booksSubject.next([...this.library]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -14,6 +14,7 @@ const bookSchema = mongoose.Schema({
     bookDescription: { type: String },
     bookImage: { type: String },
     bookStatus: { type: Number },
+    isBookLiked: { type: Boolean },
     chapters: { type: [chapterSchema], default: undefined }
 });
 

@@ -51,9 +51,11 @@ export class BookEditComponent implements OnInit {
                     response.fetchedBook.bookDescription,
                     response.fetchedBook.bookImage,
                     response.fetchedBook.bookStatus,
+                    response.fetchedBook.isBookLiked,
                     response.fetchedBook.chapters
                   );
                 }
+                this.isCategoryDevotion = this.editableBook?.bookCategory === 'devotion' ? true : false;
                 this.initializeForm();
               },
               (error) => {
@@ -70,7 +72,6 @@ export class BookEditComponent implements OnInit {
         }
       }
     );
-    this.isCategoryDevotion = this.editableBook?.bookCategory === 'devotion' ? true : false;
   }  
 
   initializeForm() {
@@ -81,6 +82,7 @@ export class BookEditComponent implements OnInit {
       bookTimeline: [this.isEditMode ? this.editableBook?.bookTimeline : null, [Validators.required]],
       bookDescription: [this.isEditMode ? this.editableBook?.bookDescription : null],
       bookImage: [this.isEditMode ? this.editableBook?.bookImage : null],
+      isBookLiked: [this.isEditMode ? this.editableBook?.isBookLiked : null],
       bookStatus: [this.isEditMode ? this.editableBook?.bookStatus : null],
       chapters: new FormArray([])
     });
@@ -129,6 +131,8 @@ export class BookEditComponent implements OnInit {
         chapter: control.value,
         isCategoryDevotion: this.isCategoryDevotion
       },
+      height: '450px',
+      width: '550px'
     });
     dialogRef.afterClosed().subscribe((result) => {
       const newChapterArr: Chapter[] = [];
@@ -164,6 +168,7 @@ export class BookEditComponent implements OnInit {
         // this.formValues.bookImage,
         'https://c8.alamy.com/comp/E63190003/painting-depicting-the-scene-in-bhagavad-gita-where-lord-krishna-enters-E63003.jpg',
         this.formValues.bookStatus ? this.formValues.bookStatus : 0,
+        this.formValues.isBookLiked ? this.formValues.isBookLiked : false,
         this.formValues.chapters
       )
       this.libraryService.updateBook(this.bookId, updatedBook);
@@ -178,6 +183,7 @@ export class BookEditComponent implements OnInit {
         // this.formValues.bookImage,
         'https://c8.alamy.com/comp/E63190003/painting-depicting-the-scene-in-bhagavad-gita-where-lord-krishna-enters-E63003.jpg',
         this.formValues.bookStatus ? this.formValues.bookStatus : 0,
+        this.formValues.isBookLiked ? this.formValues.isBookLiked : false,
         this.formValues.chapters
       );
       this.libraryService.addBook(book);

@@ -1,0 +1,18 @@
+<mat-accordion *ngIf="selectedChapter">
+    <mat-expansion-panel expanded hideToggle>
+        <mat-expansion-panel-header>
+            <b class="heading">Chapter Information</b>
+        </mat-expansion-panel-header>
+        <b>Name: </b>
+        <div class="fw-bold">{{selectedChapter.chapterName}}</div>
+        <mat-divider class="mt-2 mb-2"></mat-divider>
+        <b>Description: </b>
+        <div>{{selectedChapter.chapterDescription}}</div>
+        <mat-divider class="mt-2 mb-2"></mat-divider>
+        <b>Key Points: </b>
+        <div>{{selectedChapter.keyPoints}}</div>
+    </mat-expansion-panel>
+</mat-accordion>
+<div class="alert alert-danger p-2 fw-bold" *ngIf="!selectedChapter">
+    <small>Please select a chapter !</small>
+</div> 

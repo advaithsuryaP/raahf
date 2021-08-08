@@ -18,4 +18,7 @@ router.put('/library/:id', learningController.updateBook);
 // DELETE api/learning/library/id
 router.delete('/library/:id', learningController.deleteBook);
 
+// POST api/learning/library/id/toggleFavourite
+router.put('/library/:bookId/toggleFavourite', learningController.toggleFavouriteForBook)
+
 module.exports = router;

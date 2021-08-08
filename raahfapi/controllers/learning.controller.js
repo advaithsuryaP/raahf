@@ -27,6 +27,7 @@ exports.addBook = (req, res, next) => {
         bookDescription: req.body.bookDescription,
         bookImage: req.body.bookImage,
         bookStatus: req.body.bookStatus,
+        isBookLiked: req.body.isBookLiked,
         chapters: req.body.chapters
     });
     book.save()
@@ -48,6 +49,7 @@ exports.updateBook = (req, res, next) => {
         bookDescription: req.body.bookDescription,
         bookImage: req.body.bookImage,
         bookStatus: req.body.bookStatus,
+        isBookLiked: req.body.isBookLiked,
         chapters: req.body.chapters
     });
     Book.updateOne({ _id: req.params.id }, book)
@@ -60,5 +62,15 @@ exports.deleteBook = (req, res, next) => {
     Book.deleteOne({ _id: req.params.id })
     .then((result) => {
         res.status(200).json({ message: 'Book removed from library!' }); 
+    });
+};
+
+exports.toggleFavouriteForBook = (req, res, next) => {
+    const bookId = req.params.bookId;
+    Book.updateOne({ _id: bookId }, [
+        {$set: {isBookLiked: {$eq: [false, "$isBookLiked"]}}}
+    ])
+    .then((result) => {
+        res.status(200).json({ message: 'Favourites toggled successfully' });
     });
 };

@@ -1,0 +1,13 @@
+<div class="row" *ngIf="isBookFetched">
+    <div class="col" style="border-right: 2px solid black;">
+        <app-chapter-list 
+            [chapters]="book.chapters" 
+            (selectedChapterEvent)="handleSelectedChapter($event)">
+        </app-chapter-list>
+    </div>
+    <div class="col">
+        <app-chapter-detail 
+            [selectedChapter]="selectedChapter">
+        </app-chapter-detail>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+mat-icon {
+    font-size: 22px;
+}
+
+mat-divider {
+    margin: 4px 0px;
+}
+
+p {
+    font-size: 0.875rem;
+    margin-bottom: 0px;
+    cursor: default;
+}
+
+
+.card-header {
+    padding: 0.5rem 0.5rem;
+}
+
+.book-title {
+    color: crimson;
+}
+
+.book-category {
+    font-size: x-small;
+    color: darkmagenta;
+    cursor: default;
+}
+
+.book-author {
+    font-size: x-small;
+    cursor: default;
+}
+
+.book-desc {
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.button-action {
+    cursor: pointer;
+}

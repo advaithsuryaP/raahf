@@ -8,27 +8,10 @@ import { LibraryService } from '../../services/library.service';
   templateUrl: './learning-library.component.html',
   styleUrls: ['./learning-library.component.css']
 })
-export class LearningLibraryComponent implements OnInit, OnDestroy {
-  library: Book[] = [];
-  librarySubscription?: Subscription;
-  constructor(private libraryService: LibraryService) { }
+export class LearningLibraryComponent implements OnInit {
+  constructor() { }
 
   ngOnInit(): void { 
-    this.libraryService.getBooks();
-    this.librarySubscription = this.libraryService.booksListener
-    .subscribe(
-      (data) => {
-        this.library = data;
-      },
-    );
-  }
-
-  onDelete(bookId: string | null) {
-    if(bookId) this.libraryService.removeBook(bookId);
-  }
-
-  ngOnDestroy() {
-    if(this.librarySubscription) this.librarySubscription.unsubscribe();
   }
 
 }
